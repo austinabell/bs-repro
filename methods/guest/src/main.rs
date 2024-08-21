@@ -1,13 +1,11 @@
 use risc0_zkvm::guest::env;
 
 fn main() {
-    // TODO: Implement your guest code here
+    let input: Option<(Vec<u8>, [u32; 8])> = env::read();
 
-    // read the input
-    let input: u32 = env::read();
+    if let Some((journal, image_id)) = input {
+        env::verify(image_id, &journal).unwrap();
+    }
 
-    // TODO: do something with the input
-
-    // write public output to the journal
-    env::commit(&input);
+    env::commit_slice("test".as_bytes());
 }

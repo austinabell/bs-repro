@@ -16,7 +16,7 @@ fn main() -> anyhow::Result<()> {
         .write(&None::<(Vec<u8>, [u32; 8])>)?
         .build()?;
 
-    let prove_info = prover_a.prove_with_opts(env, METHOD_ELF, &ProverOpts::fast())?;
+    let prove_info = prover_a.prove_with_opts(env, METHOD_ELF, &ProverOpts::composite())?;
 
     let receipt = prove_info.receipt;
     receipt.verify(METHOD_ID).unwrap();
@@ -26,7 +26,7 @@ fn main() -> anyhow::Result<()> {
         .add_assumption(receipt)
         .build()?;
 
-    let prove_info = prover_b.prove_with_opts(env, METHOD_ELF, &ProverOpts::fast())?;
+    let prove_info = prover_b.prove_with_opts(env, METHOD_ELF, &ProverOpts::succinct())?;
 
     let receipt = prove_info.receipt;
     receipt.verify(METHOD_ID).unwrap();
